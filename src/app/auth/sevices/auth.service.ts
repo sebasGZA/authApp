@@ -37,10 +37,21 @@ export class AuthService {
       )
   }
 
-  validarToken() {
+  validarToken(): Observable<boolean> {
     const url = `${this._baseUrl}/auth/renew`
     const headers = new HttpHeaders()
       .set('x-token', localStorage.getItem('token') || '')
-    return this.httpSvc.get(url, { headers })
+    return this.httpSvc.get<authResponse>(url, { headers })
+      .pipe(
+        map(resp => {
+          localStorage.setItem('token', resp.token!)
+          this._usuario = {
+            name: resp.name!,
+            uid: resp.uid!,
+          }
+          return resp.ok
+        }),
+        catchError(err => of(false))
+      )
   }
 }
