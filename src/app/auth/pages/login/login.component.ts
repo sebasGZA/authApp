@@ -20,6 +20,7 @@ export class LoginComponent {
   constructor(private formBuilder: FormBuilder, private router: Router, private authSvc: AuthService) { }
 
   login() {
+    // this.authSvc.validarToken().subscribe(console.log)
     const { email, password } = this.miFormulario.value
     this.authSvc.logIn(email, password).subscribe(ok => {
       if (ok === true) {
