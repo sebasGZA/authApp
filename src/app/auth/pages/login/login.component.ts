@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../sevices/auth.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-login',
@@ -21,10 +22,10 @@ export class LoginComponent {
   login() {
     const { email, password } = this.miFormulario.value
     this.authSvc.logIn(email, password).subscribe(ok => {
-      if (ok) {
+      if (ok === true) {
         this.router.navigateByUrl('/dashboard')
       } else {
-
+        Swal.fire('Error', ok, 'error')
       }
     })
   }
