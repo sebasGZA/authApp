@@ -20,10 +20,13 @@ export class LoginComponent {
 
   login() {
     const { email, password } = this.miFormulario.value
-    this.authSvc.logIn(email, password).subscribe(resp => {
-      console.log(resp)
+    this.authSvc.logIn(email, password).subscribe(ok => {
+      if (ok) {
+        this.router.navigateByUrl('/dashboard')
+      } else {
+
+      }
     })
-    // this.router.navigateByUrl('/dashboard')
   }
 
 }
