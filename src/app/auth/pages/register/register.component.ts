@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,11 +16,10 @@ export class RegisterComponent {
     password: ['', [Validators.required, Validators.minLength(6)]]
   })
 
-  constructor(private formBuilder:FormBuilder) { }
+  constructor(private formBuilder:FormBuilder, private router:Router) { }
 
 
   registro(){
-    console.log(this.miFormulario.value)
-    console.log(this.miFormulario.valid)
+    this.router.navigateByUrl('/dashboard')
   }
 }
